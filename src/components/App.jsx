@@ -1,24 +1,10 @@
+import initialFriends from '../initialFriends';
+
 const App = () => {
   return (
-    <div className="app">
-      <div>
-        <ul>
-          <li>
-            <img src="" alt="Person" />
-            <h3>Clark</h3>
-            <p>You owe Clark 7&euro;</p>
-          </li>
-          <li>
-            <img src="" alt="Person" />
-            <h3>Clark</h3>
-            <p>You owe Clark 7&euro;</p>
-          </li>
-          <li>
-            <img src="" alt="Person" />
-            <h3>Clark</h3>
-            <p>You owe Clark 7&euro;</p>
-          </li>
-        </ul>
+    <main className="app">
+      <div className="sidebar">
+        <FriendsList />
         <form action="">
           <p>
             <img src="" alt="friend" /> <label for="">Friend's name </label>
@@ -31,6 +17,7 @@ const App = () => {
           <button>Add</button>
         </form>
       </div>
+
       <form action="">
         <h2>SPLIT A BILL WITH SARAH</h2>
         <p>
@@ -55,7 +42,37 @@ const App = () => {
         </p>
         <button>Split bill</button>
       </form>
-    </div>
+    </main>
+  );
+};
+
+const FriendsList = () => {
+  const friends = initialFriends;
+  return (
+    <ul>
+      {friends.map((friend) => (
+        <Friend friend={friend} key={friend.id} />
+      ))}
+    </ul>
+  );
+};
+
+const Friend = ({ friend }) => {
+  return (
+    <li>
+      <img src={friend.image} alt={friend.name} />
+      <h3>{friend.name}</h3>
+      {friend.balance < 0 && (
+        <p className="red">You owe Clark {Math.abs(friend.balance)}&euro;</p>
+      )}
+      {friend.balance > 0 && (
+        <p className="green">
+          {friend.name} owes you {Math.abs(friend.balance)}&euro;
+        </p>
+      )}
+      {friend.balance === 0 && <p>You and {friend.name} are even</p>}
+      <button className="button">Select</button>
+    </li>
   );
 };
 
