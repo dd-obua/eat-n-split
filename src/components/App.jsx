@@ -1,17 +1,27 @@
 import { useState } from 'react';
 import initialFriends from '../initialFriends';
 
-const Button = ({ children }) => {
-  return <button className="button">{children}</button>;
+const Button = ({ children, onClick }) => {
+  return (
+    <button className="button" onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 
 const App = () => {
+  const [showAddFriend, setShowAddFriend] = useState(false);
+  const handleShowAddFriend = () => {
+    setShowAddFriend((show) => !show);
+  };
   return (
     <main className="app">
       <div className="sidebar">
         <FriendsList />
-        <FormAddFriend />
-        <Button>Add friend</Button>
+        {showAddFriend && <FormAddFriend />}
+        <Button onClick={handleShowAddFriend}>
+          {showAddFriend ? 'Close' : 'Add friend'}
+        </Button>
       </div>
       <FormSplitBill />
     </main>
