@@ -1,47 +1,19 @@
+import { useState } from 'react';
 import initialFriends from '../initialFriends';
+
+const Button = ({ children }) => {
+  return <button className="button">{children}</button>;
+};
 
 const App = () => {
   return (
     <main className="app">
       <div className="sidebar">
         <FriendsList />
-        <form action="">
-          <p>
-            <img src="" alt="friend" /> <label for="">Friend's name </label>
-            <input type="text" />
-          </p>
-          <p>
-            <img src="" alt="friend" /> <label for="">Image URL </label>
-            <input type="text" />
-          </p>
-          <button>Add</button>
-        </form>
+        <FormAddFriend />
+        <Button>Add friend</Button>
       </div>
-
-      <form action="">
-        <h2>SPLIT A BILL WITH SARAH</h2>
-        <p>
-          <img src="" alt="Illustration" />
-          <label for="">Bill value</label>
-          <input type="text" />
-        </p>
-        <p>
-          <img src="" alt="Illustration" />
-          <label for="">Bill value</label>
-          <input type="text" />
-        </p>
-        <p>
-          <img src="" alt="Illustration" />
-          <label for="">Bill value</label>
-          <input type="text" />
-        </p>
-        <p>
-          <img src="" alt="Illustration" />
-          <label for="">Bill value</label>
-          <input type="text" />
-        </p>
-        <button>Split bill</button>
-      </form>
+      <FormSplitBill />
     </main>
   );
 };
@@ -71,8 +43,47 @@ const Friend = ({ friend }) => {
         </p>
       )}
       {friend.balance === 0 && <p>You and {friend.name} are even</p>}
-      <button className="button">Select</button>
+      <Button>Select</Button>
     </li>
+  );
+};
+
+const FormAddFriend = () => {
+  return (
+    <form className="form-add-friend">
+      <label>Friend</label>
+      <input type="text" />
+
+      <label>Image URL</label>
+      <input type="text" />
+
+      <Button>Add</Button>
+    </form>
+  );
+};
+
+const FormSplitBill = () => {
+  return (
+    <form className="form-split-bill">
+      <h2>Split a bill with x</h2>
+
+      <label>💰 Bill value</label>
+      <input type="text" />
+
+      <label>🧍 Your expense</label>
+      <input type="text" />
+
+      <label> 🧑‍🤝‍🧑 X's expense </label>
+      <input type="text" disabled />
+
+      <label>🤑Who is paying the bill?</label>
+      <select>
+        <option value="user">You</option>
+        <option value="friend">X</option>
+      </select>
+
+      <Button>Split bill</Button>
+    </form>
   );
 };
 
