@@ -22,7 +22,7 @@ const App = () => {
   };
 
   const handleSelection = (friend) => {
-    setSelectedFriend(friend);
+    setSelectedFriend((cur) => (cur?.id === friend.id ? null : friend));
   };
 
   return (
